@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>选项卡</title>
+		<style type="text/css">
+			*{margin: 0; padding: 0; font-family: "微软雅黑";font-size: 14px;}
+			#container{
+				width: 398px; 
+				margin: 100px auto;}
+			#container a{
+				display:block ;
+				width: 98px; 
+				height: 42px; 
+				line-height: 42px; 
+				text-align: center; 
+				float: left;
+				border-top: solid 1px #FF4400;
+				border-bottom: solid 1px #FF4400;
+				border-left: solid 1px #FF4400;
+				color: #333333;
+				text-decoration: none;
+			}
+			#container a:hover{
+				color: #FF4400;
+			}
+			.content{
+				width: 355px;
+				height: 140px;
+				text-align: center;
+				border-right: solid 1px #FF4400;
+				border-bottom: solid 1px #FF4400;
+				border-left: solid 1px #FF4400;
+				padding: 30px 0 0 40px;
+				display: none;
+			}
+			.clear{clear: left;}
+			#container a.on{ background: #FF4400; color: #fff;}
+		</style>
+	
+	</head>
+	<body>
+		<div id="container">
+			<a href="#" class="on">充话费</a>
+			<a href="#">充流量</a>
+			<a href="#">充固话</a>
+			<a href="#" style="border-right: solid 1px #FF4400;">充宽带</a>
+
+			<div class="clear"></div>
+			
+			<div class="content" style="display:block;">
+				<img src="images/1.png" />
+			</div>
+		
+
+			<div class="content">
+				<img src="images/2.png" />
+			</div>
+
+
+			<div class="content">
+				<img src="images/3.png" />
+			</div>
+
+
+			<div class="content">
+				<img src="images/4.png" />
+			</div>
+		</div>
+	</body>
+</html>
+<script src="public.js"></script>
+<script type="text/javascript">
+	//分析页面结构 ： 让标题和对应的内容下标保持一致
+	//分析特效 ： 每一个标题都有相同的onmouseover 事件
+	//当鼠标移入到某个标题上  显示对应的内容
+	
+	//查找某个容器下的所有a标签
+	var asObj = $id("container").getElementsByTagName("a");
+	//为四个标题添加属性 记录每一个标题的下标
+	/*asObj[0].index = 0;
+	asObj[1].index = 1;
+	asObj[2].index = 2;
+	asObj[3].index = 3;*/
+	
+	//查找标题对应的内容
+	var divs = document.getElementsByClassName("content");
+	
+	//分析实现思路
+	//1--为每一个标题添加onmouseover事件   利用循环
+	for( var i = 0 ; i < asObj.length ; i++ ){
+		asObj[i].index = i;//为四个标题添加属性 记录每一个标题的下标
+		asObj[i].onmouseover = function(){
+			//3--利用排他思想 先将所有标题样式清空   再将所有的标题内容隐藏
+			for( var j = 0 ; j < asObj.length ; j++ ){
+				asObj[j].className = "";
+				divs[j].style.display = "none";
+			}
+			//2--为当前操作的标题添加样式
+			this.className = "on";
+			//4--找到当前操作标题对应的内容 (如果找到当前操作标题下标   根据下标找到内容)
+			//首先找到当前标题的下标
+			var index = this.index;
+			//显示当前标题对应的内容
+			divs[index].style.display = "block";
+		}
+	}
+</script>
